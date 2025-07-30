@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente Virtual Yacambú - Tu guía universitaria inteligente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos generales */
+        :root {
+            --primary-color: #0056b3;
+            
+            --secondary-color: #003366;
+            --accent-color: #ff6b00;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --text-color: #333;
+            --text-light: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--accent-color);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-accent:hover {
+            background-color: #e05d00;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+        
+        .logo-text span {
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            font-weight: 600;
+            color: var(--dark-color);
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-color: white;
+            transform: skewY(-3deg);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .hero-image {
+            margin-top: 50px;
+            position: relative;
+            max-width: 80px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background-color: var(--light-color);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: var(--light-color);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .about-list {
+            margin: 30px 0;
+        }
+        
+        .about-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .about-list i {
+            color: var(--accent-color);
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        /* Articles Section */
+        .articles {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .article-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .article-image {
+            height: 300px;
+            overflow: hidden;
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .article-image img {
+            width: 200px;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .article-card:hover .article-image img {
+            transform: scale(1.1);
+        }
+        
+        .article-content {
+            padding: 25px;
+        }
+        
+        .article-category {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .article-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        
+        .article-content p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 0;
+            background-color: var(--light-color);
+            text-align: center;
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 50px auto 0;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin: 0 20px;
+        }
+        
+        .testimonial-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--accent-color);
+            opacity: 0.3;
+            position: absolute;
+        }
+        
+        .testimonial-text::before {
+            top: -20px;
+            left: -15px;
+        }
+        
+        .testimonial-text::after {
+            bottom: -40px;
+            right: -15px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+        
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        df-messenger {
+      --df-messenger-chat-window-height: 400px; /* Ajusta este valor a tu gusto */
+      --df-messenger-chat-window-width: 300px;  /* Ajusta este valor a tu gusto */
+      /* Opcional: Para mover la posición del botón flotante */
+      --df-messenger-button-size: 70px; /* Tamaño del botón */
+      --df-messenger-button-margin: 20px; /* Margen para alejarlo de los bordes */
+      --df-messenger-button-position-bottom: 20px; /* Distancia desde abajo */
+      --df-messenger-button-position-right: 20px; /* Distancia desde la derecha */
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 70px 0 0;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-column p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+            list-style: none;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px;
+            }
+            
+            nav {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background-color: white;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+                z-index: 999;
+            }
+            
+            nav.active {
+                left: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                padding: 30px;
+            }
+            
+            nav ul li {
+                margin: 15px 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-buttons, .cta-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 120px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="img/chat_icon2.png" alt="Logo Yacambú">
+                <div class="logo-text">Asistente <span>Virtual</span></div>
+            </div>
+            <nav id="main-nav">
+                <ul>
+                    <!-- <li><a href="#inicio">Inicio</a></li> -->
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#caracteristicas">Características</a></li>
+                    <li><a href="#acerca">Acerca del Asistente</a></li>
+                    <li><a href="#articulos">Artículos</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Tu Asistente Virtual Inteligente de la Universidad Yacambú</h1>
+                <p>Resuelve tus dudas académicas las 24 horas del día con nuestra innovadora solución basada en inteligencia artificial</p>
+                <div class="hero-buttons">
+                    <a href="#contacto" class="btn btn-accent">Probar Ahora</a>
+                    <a href="#caracteristicas" class="btn">Conocer Más</a>
+                </div>
+                <div class="hero-image">
+                    <img src="img/chat_icon2.png" alt="Asistente Virtual Yacambú">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="caracteristicas">
+        <div class="container">
+            <h2 class="section-title">Características Principales</h2>
+            <p class="section-subtitle">Descubre cómo nuestro asistente virtual puede transformar tu experiencia universitaria</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Disponibilidad 24/7</h3>
+                    <p>Accede a información académica en cualquier momento, incluso fuera del horario de atención.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Información Académica</h3>
+                    <p>Consulta horarios, programas de estudio, calendarios académicos y requisitos de materias.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Tecnología Dialogflow</h3>
+                    <p>Potenciado por inteligencia artificial de Google para respuestas precisas y naturales.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Interacción Natural</h3>
+                    <p>Habla con el asistente como si fuera una persona real, usando tu lenguaje cotidiano.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3>Gestión de Trámites</h3>
+                    <p>Obtén información sobre procesos administrativos y requisitos para diferentes trámites.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Actualización Constante</h3>
+                    <p>La base de conocimiento se actualiza regularmente con la información más reciente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="acerca">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Asistencia Inteligente para la Comunidad Yacambú</h2>
+                    <p>Nuestro asistente virtual representa un avance significativo en la atención al estudiante, combinando la potencia de Dialogflow (tecnología de Google) con un profundo conocimiento de los procesos académicos de la Universidad Yacambú.</p>
+                    <p>Desarrollado como un proyecto tecnológica de la universidad, este asistente está diseñado para entender y responder a las necesidades específicas de nuestros estudiantes, personal administrativo y público externo de la Universidad.</p>
+                    
+                    <div class="about-list">
+                        <ul>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Integración con los sistemas académicos de la universidad</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Capacidad de aprendizaje continuo para mejorar sus respuestas</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Diseñado específicamente para el contexto venezolano</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Soporte para múltiples canales de comunicación</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <a href="#articulos" class="btn">Aprender Más</a>
+                </div>
+                
+                <div class="about-image">
+                    <img src="img/virtual-assistant.png" alt="Tecnología del Asistente">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section class="articles" id="articulos">
+        <div class="container">
+            <h2 class="section-title">Artículos y Noticias</h2>
+            <p class="section-subtitle">Mantente informado sobre las últimas actualizaciones y novedades de nuestro asistente virtual</p>
+            
+            <div class="articles-grid">
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="img/pngegg.png" alt="Artículo 1">
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">Tecnología</span>
+                        <h3>Cómo Dialogflow potencia la atención al estudiante</h3>
+                        <p>Explora la tecnología detrás de nuestro asistente virtual y cómo está transformando la experiencia universitaria.</p>
+                        <div class="article-meta">
+                            <!-- <span><i class="far fa-calendar-alt"></i> 15 Junio 2023</span>
+                            <span><i class="far fa-clock"></i> 5 min lectura</span> -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="img/preguntas-mas-frecuentes.png" alt="Artículo 2">
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">Guía</span>
+                        <h3>10 Preguntas frecuentes que puedes hacerle al asistente</h3>
+                        <p>Descubre cómo sacarle el máximo provecho a tu asistente virtual con estas preguntas comunes.</p>
+                        <div class="article-meta">
+                            <!-- <span><i class="far fa-calendar-alt"></i> 2 Julio 2023</span>
+                            <span><i class="far fa-clock"></i> 3 min lectura</span> -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="img/actualizacion.png" alt="Artículo 3">
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">Actualización</span>
+                        <h3>Nuevas funcionalidades en la última versión</h3>
+                        <p>El asistente ahora puede ayudarte con trámites de biblioteca y consulta de calificaciones.</p>
+                        <div class="article-meta">
+                           <!-- <span><i class="far fa-calendar-alt"></i> 10 Julio 2023</span>
+                            <span><i class="far fa-clock"></i> 4 min lectura</span> -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- <div class="article-card">
+                    <div class="article-image">
+                        <img src="https://via.placeholder.com/400x250" alt="Artículo 4">
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">Educación</span>
+                        <h3>El impacto de los asistentes virtuales en la educación superior</h3>
+                        <p>Análisis de cómo estas tecnologías están cambiando la relación entre estudiantes e instituciones.</p>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar-alt"></i> 22 Mayo 2023</span>
+                            <span><i class="far fa-clock"></i> 7 min lectura</span>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="https://via.placeholder.com/400x250" alt="Artículo 5">
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">Testimonio</span>
+                        <h3>Estudiantes comparten sus experiencias con el asistente</h3>
+                        <p>Conoce cómo el asistente virtual ha ayudado a estudiantes de diferentes carreras en sus procesos académicos.</p>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar-alt"></i> 5 Junio 2023</span>
+                            <span><i class="far fa-clock"></i> 6 min lectura</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="https://via.placeholder.com/400x250" alt="Artículo 6">
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">Tutorial</span>
+                        <h3>Cómo integrar el asistente en tu rutina académica</h3>
+                        <p>Guía paso a paso para incorporar esta herramienta en tu día a día como estudiante Yacambú.</p>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar-alt"></i> 18 Abril 2023</span>
+                            <span><i class="far fa-clock"></i> 8 min lectura</span>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section 
+    <section class="testimonials" id="testimonios">
+        <div class="container">
+            <h2 class="section-title">Lo que dicen nuestros usuarios</h2>
+            <p class="section-subtitle">Experiencias reales de la comunidad Yacambú con nuestro asistente virtual</p>
+            
+            <div class="testimonial-slider">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        El asistente virtual me salvó cuando necesitaba información urgente sobre los requisitos para cambiar de carrera a las 11 de la noche. Respondió todas mis preguntas de forma clara y precisa.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://via.placeholder.com/60x60" alt="María González">
+                        </div>
+                        <div class="author-info">
+                            <h4>María González</h4>
+                            <p>Estudiante de Psicología</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        Como profesor, he notado una reducción significativa en las dudas repetitivas de los estudiantes gracias al asistente. Ahora puedo enfocarme en consultas más complejas durante mis horas de atención.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://via.placeholder.com/60x60" alt="Prof. Carlos Mendoza">
+                        </div>
+                        <div class="author-info">
+                            <h4>Prof. Carlos Mendoza</h4>
+                            <p>Docente de Ingeniería</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        La facilidad para consultar horarios de clases y fechas de entrega de trabajos ha mejorado mucho mi organización. El asistente incluso me envía recordatorios si se lo pido.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://via.placeholder.com/60x60" alt="José Ramírez">
+                        </div>
+                        <div class="author-info">
+                            <h4>José Ramírez</h4>
+                            <p>Estudiante de Derecho</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- CTA Section -->
+    <section class="cta" id="contacto">
+        <div class="container">
+            <h2>¿Listo para probar nuestro asistente virtual?</h2>
+            <p>Únete a la comunidad Yacambú que ya está aprovechando esta innovadora herramienta para simplificar su vida académica.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-accent">Comenzar Ahora</a>
+                <a href="#" class="btn">Ver Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chat Container 
+    <div id="chat-container" style="display: none;">
+    <div id="df-messenger-wrapper"> 
+     <button id="close-chat" class="btn btn-accent">Cerrar Chat</button> -->
+        
+
+    <div class = "dialog">
+      <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+      <df-messenger
+      intent="WELCOME"
+      chat-title="UnyChat"
+      chat-icon="img/chat_icon2.png"
+      agent-id="36275c01-de0a-409c-8089-fffcc4f5b8bf"
+      language-code="es">
+      </df-messenger>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Asistente Virtual Yacambú</h3>
+                    <p>La solución inteligente para la comunidad universitaria, disponible las 24 horas del día, los 7 días de la semana.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#caracteristicas">Características</a></li>
+                        <li><a href="#acerca">Acerca del Asistente</a></li>
+                        <li><a href="#articulos">Artículos</a></li>
+                       <!--  <li><a href="#testimonios">Testimonios</a></li> -->
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Recursos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                        <li><a href="#">Manual de Usuario</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                        <li><a href="#">Términos de Servicio</a></li>
+                        <li><a href="#">Centro de Ayuda</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Universidad Yacambú, Venezuela</p>
+                    <p><i class="fas fa-envelope"></i> V-26626721@micorreo.uny.edu.ve</p>
+                    <p><i class="fas fa-phone"></i> +58 412 706 7294</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; Asistente Virtual. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            document.getElementById('main-nav').classList.toggle('active');
+        });
+        
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                document.getElementById('main-nav').classList.remove('active');
+            });
+        });
+        
+        // Simple testimonial slider
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll('.testimonial-card');
+        
+        function showTestimonial(index) {
+            testimonials.forEach((testimonial, i) => {
+                testimonial.style.display = i === index ? 'block' : 'none';
+            });
+        }
+        
+        function nextTestimonial() {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }
+        
+        // Initialize
+        showTestimonial(0);
+        setInterval(nextTestimonial, 5000);
+
+            // Chat Demo Functionality
+        document.getElementById('demo-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('chat-container').style.display = 'block';
+    
+            // Scroll to bottom to see the chat
+            window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+            });
+        });
+
+        document.getElementById('close-chat').addEventListener('click', function() {
+        document.getElementById('chat-container').style.display = 'none';
+        });
+
+        // Optional: Close chat when clicking outside
+        document.addEventListener('click', function(e) {
+        const chatContainer = document.getElementById('chat-container');
+        if (chatContainer.style.display === 'block' && 
+        !chatContainer.contains(e.target) && 
+        e.target.id !== 'demo-btn') {
+        chatContainer.style.display = 'none';
+        }
+        }); 
+    </script>
+</body> 
+</html>
